@@ -737,8 +737,42 @@ void DW3000Class::ds_sendFrame(int stage) {
     }
 }
 
+void DW3000Class::ds_sendFrame(int stage, uint8_t sender_id, uint8_t destination_id) {
+    setMode(1); 
+    write(0x14, 0x01, sender_id);
+    write(0x14, 0x02, destination_id);
+    write(0x14, 0x03, stage & 0x7);
+    setFrameLength(4);
+
+    TXInstantRX(); //Await response
+
+    bool error = true;
+    for (int i = 0; i < 50; i++) {
+        if (sentFrameSucc()) {
+            error = false;
+            break;
+        }
+    };
+    if (error) {
+        Serial.println("[ERROR] Could not send frame successfully!");
+    }
+}
+
 void DW3000Class::ds_sendRTInfo(int t_roundB, int t_replyB) {
     setMode(1);
+    write(0x14, 0x03, 4);
+    write(0x14, 0x04, t_roundB);
+    write(0x14, 0x08, t_replyB);
+
+    setFrameLength(12);
+
+    TXInstantRX();
+}
+
+void DW3000Class::ds_sendRTInfo(int t_roundB, int t_replyB, uint8_t sender_id, uint8_t destination_id) {
+    setMode(1);
+    write(0x14, 0x01, sender_id);
+    write(0x14, 0x02, destination_id);
     write(0x14, 0x03, 4);
     write(0x14, 0x04, t_roundB);
     write(0x14, 0x08, t_replyB);

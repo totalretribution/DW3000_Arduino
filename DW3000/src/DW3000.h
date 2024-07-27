@@ -35,7 +35,9 @@ class DW3000Class {
 
 		// Functions that are used for double-sided ranging
 		static void ds_sendFrame(int stage);
+		static void ds_sendFrame(int stage, uint8_t sender_id, uint8_t destination_id);
 		static void ds_sendRTInfo(int t_roundB, int t_replyB);
+		static void ds_sendRTInfo(int t_roundB, int t_replyB, uint8_t sender_id, uint8_t destination_id);
 		static int ds_processRTInfo(int t_roundA, int t_replyA, int t_roundB, int t_replyB, int clock_offset);
 		static int ds_getStage();
 		static void ds_sendErrorFrame();
