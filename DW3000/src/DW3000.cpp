@@ -941,6 +941,15 @@ void DW3000Class::ds_sendErrorFrame() {
     TXInstantRX();
 }
 
+void DW3000Class::ds_sendErrorFrame(uint8_t sender_id, uint8_t destination_id) {
+    Serial.println("[WARNING] Error Frame sent. Reverting back to stage 0.");
+    setMode(7);
+    write(0x14, 0x01, sender_id);
+    write(0x14, 0x02, destination_id);
+    setFrameLength(3);
+    TXInstantRX();
+}
+
 /*
 * Set bit in a defined register address
 */

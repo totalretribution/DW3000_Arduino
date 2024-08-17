@@ -41,6 +41,7 @@ class DW3000Class {
 		static int ds_processRTInfo(int t_roundA, int t_replyA, int t_roundB, int t_replyB, int clock_offset);
 		static int ds_getStage();
 		static void ds_sendErrorFrame();
+		static void ds_sendErrorFrame(uint8_t sender_id, uint8_t destination_id);
 
 		static void setChannel(uint8_t data);
 		static void setPreambleLength(uint8_t data);
