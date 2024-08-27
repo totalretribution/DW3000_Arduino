@@ -886,6 +886,10 @@ unsigned long long DW3000Class::readRXBuffer() { // deprecated! Use read(RX_BUFF
     return buf0;
 }
 
+void DW3000Class::setToIdlePLL() {
+    DW3000Class::writeFastCommand(0x00);
+}
+
 void DW3000Class::standardTX() {
     DW3000Class::writeFastCommand(0x01);
 }

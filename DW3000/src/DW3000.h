@@ -94,6 +94,7 @@ class DW3000Class {
 		static void prepareDelayedTX();
 		static void delayedTX();
 
+		static void setToIdlePLL();
 		static void standardTX();
 		static void standardRX();
 		static void TXInstantRX();
